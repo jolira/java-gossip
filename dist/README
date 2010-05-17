@@ -1,0 +1,4 @@
+You can start a gossip client by executing:
+java -jar gossip-java.jar
+
+When running on Windows there is also a .cmd file to start a client.
