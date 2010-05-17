@@ -2,6 +2,7 @@ package com.google.code.gossip;
 
 import java.util.Date;
 
+import javax.management.NotificationListener;
 import javax.management.timer.Timer;
 
 /**
@@ -26,11 +27,11 @@ public class GossipTimeoutTimer extends Timer {
 	 * @param service
 	 * @param member
 	 */
-	public GossipTimeoutTimer(long millisecondsSleepTime, GossipService service, LocalGossipMember member) {
+	public GossipTimeoutTimer(long millisecondsSleepTime, NotificationListener notificationListener, LocalGossipMember member) {
 		super();
 		_sleepTime = millisecondsSleepTime;
 		_source = member;
-		addNotificationListener(service, null, null);
+		addNotificationListener(notificationListener, null, null);
 	}
 
 	/**

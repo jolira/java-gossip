@@ -1,5 +1,7 @@
 package com.google.code.gossip;
 
+import javax.management.NotificationListener;
+
 /**
  * This object represent a gossip member with the properties known locally.
  * These objects are stored in the local list of gossip member.s
@@ -18,10 +20,10 @@ public class LocalGossipMember extends GossipMember {
 	 * @param gossipService The GossipService object.
 	 * @param cleanupTimeout The cleanup timeout for this gossip member.
 	 */
-	public LocalGossipMember(String hostname, int port, int heartbeat, GossipService gossipService, int cleanupTimeout) {
+	public LocalGossipMember(String hostname, int port, int heartbeat, NotificationListener notificationListener, int cleanupTimeout) {
 		super(hostname, port, heartbeat);
 		
-		this.timeoutTimer = new GossipTimeoutTimer(cleanupTimeout, gossipService, this);
+		this.timeoutTimer = new GossipTimeoutTimer(cleanupTimeout, notificationListener, this);
 	}
 
 	/**
