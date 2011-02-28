@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.jolira</groupId>
+    <artifactId>superpom</artifactId>
+    <version>1.1.2</version>
+  </parent>
+  <groupId>com.jolira</groupId>
+  <artifactId>java-gossip</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>java-gossip</name>
+  <description>A network-friendly gossip service for Java (for member management). Cloned from http://code.google.com/p/java-gossip/.</description>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <scm>
+    <connection>scm:git:git@github.com:jolira/java-gossip.git</connection>
+    <developerConnection>scm:git:git@github.com:jolira/java-gossip.git</developerConnection>
+    <url>http://github.com/jolira/java-gossip</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>jfk</id>
+      <name>Joachim Kainz</name>
+      <email>jfk@jolira.com</email>
+    </developer>
+  </developers>
+</project>
