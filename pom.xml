@@ -12,6 +12,15 @@
   <packaging>jar</packaging>
   <name>java-gossip</name>
   <description>A network-friendly gossip service for Java (for member management). Cloned from http://code.google.com/p/java-gossip/.</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-api</artifactId>
+  		<version>1.6.1</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
