@@ -8,10 +8,10 @@
   </parent>
   <groupId>com.jolira</groupId>
   <artifactId>java-gossip</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>1.5.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>java-gossip</name>
-  <description>A network-friendly gossip service for Java (for member management). Cloned from http://code.google.com/p/java-gossip/.</description>
+  <description>A gossip protocol with self-discovery and broadcasting capabilites.</description>
   <dependencies>
   	<dependency>
   		<groupId>org.slf4j</groupId>
