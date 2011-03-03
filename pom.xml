@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.jolira</groupId>
   <artifactId>java-gossip</artifactId>
-  <version>1.5.0-SNAPSHOT</version>
+  <version>1.5.0</version>
   <packaging>jar</packaging>
   <name>java-gossip</name>
   <description>A gossip protocol with self-discovery and broadcasting capabilites.</description>
