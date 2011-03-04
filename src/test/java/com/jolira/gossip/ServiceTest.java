@@ -16,6 +16,8 @@ import java.net.UnknownHostException;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author jfk
@@ -24,6 +26,9 @@ import org.junit.Test;
  * 
  */
 public class ServiceTest {
+    private static final int TREAD_COUNT = 3;
+
+    final static Logger LOG = LoggerFactory.getLogger(ServiceTest.class);
 
     /**
      * Test the send functionality.
@@ -35,7 +40,7 @@ public class ServiceTest {
      */
     @Test
     public void testService() throws SocketException, UnknownHostException, InterruptedException {
-        final InetAddress localhost = InetAddress.getLocalHost();
+        final InetAddress localhost = InetAddress.getByName("localhost");
         final InetSocketAddress addr1 = new InetSocketAddress(localhost, 17685);
         final InetSocketAddress addr2 = new InetSocketAddress(localhost, 17684);
         final Service svc1 = new Service(addr1, new InetSocketAddress[] { addr2 });
@@ -64,5 +69,67 @@ public class ServiceTest {
 
         System.out.println(svc1);
         System.out.println(svc2);
+    }
+
+    /**
+     * Lots more tests.
+     * 
+     * @throws SocketException
+     * @throws UnknownHostException
+     * @throws InterruptedException
+     * 
+     */
+    // @Test
+    public void testServiceMore() throws SocketException, UnknownHostException, InterruptedException {
+        final InetAddress localhost = InetAddress.getByName("localhost");
+        final Service[] services = new Service[TREAD_COUNT];
+        final InetSocketAddress seed = new InetSocketAddress(localhost, 17686);
+        final CountDownLatch startLatch = new CountDownLatch(TREAD_COUNT);
+        final CountDownLatch endLatch = new CountDownLatch(TREAD_COUNT);
+
+        for (int idx = 0; idx < TREAD_COUNT; idx++) {
+            final InetSocketAddress addr = new InetSocketAddress(localhost, 17686 + idx);
+            final Service svc = new Service(addr, new InetSocketAddress[] { seed });
+
+            services[idx] = svc;
+
+            svc.add("topic.", new Listener() {
+                @Override
+                public void handleMessage(final String topic, final String message) {
+                    endLatch.countDown();
+
+                    LOG.info("remaining count is " + endLatch.getCount());
+                }
+            });
+
+            final Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    startLatch.countDown();
+
+                    try {
+                        startLatch.await();
+                    } catch (final InterruptedException e) {
+                        throw new Error(e);
+                    }
+
+                    for (int m = 0; m < TREAD_COUNT; m++) {
+                        svc.send("topic1", "test" + m);
+                        try {
+                            Thread.sleep(200);
+                        } catch (final InterruptedException e) {
+                            throw new Error(e);
+                        }
+                    }
+                }
+            });
+
+            thread.setName("test-" + idx);
+            thread.setDaemon(true);
+            thread.start();
+        }
+
+        endLatch.await();
+        System.out.println(services);
     }
 }
